@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getUsersRequest, createUserRequest, deleteUserRequest } from '../actions/users'
 import UserList from './UserList';
 import NewUserForm from './NewUserForm';
+import { Alert } from 'reactstrap';
 
 
 // generator function - it will begin again if called 4 times if while(true) is there. 
@@ -44,8 +45,17 @@ class App extends Component {
     console.log(itertator.next());
 
     const users = this.props.users
+
+    const handleCloseAlert = () => {
+
+    };
+
     return (
       <div style={{margin: '0 auto', padding: '20px', maxWidth: '600px'}}>
+         <Alert color="danger" isOpen={!!this.props.users.error} toggle={this.handleCloseAlert}>
+            {this.props.users.error}
+        </Alert>
+
         <NewUserForm onSubmit={this.handleCreateUserSubmit} />
         <UserList onDeleteUser={this.handleDeleteUserClick} users={users.items}/>
       </div>
