@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUsersRequest, createUserRequest, deleteUserRequest } from '../actions/users'
+import { getUsersRequest, createUserRequest, deleteUserRequest, usersError } from '../actions/users'
 import UserList from './UserList';
 import NewUserForm from './NewUserForm';
 import { Alert } from 'reactstrap';
@@ -36,6 +36,13 @@ class App extends Component {
     this.props.deleteUserRequest(userId);
 };
 
+handleCloseAlert = () => {
+  this.props.usersError({
+    error: ''
+  })
+
+};
+
   render() {
     // this is an example to showcase the generator testing func... keep for study - not necessary for app.
     const itertator = testing();
@@ -45,10 +52,6 @@ class App extends Component {
     console.log(itertator.next());
 
     const users = this.props.users
-
-    const handleCloseAlert = () => {
-
-    };
 
     return (
       <div style={{margin: '0 auto', padding: '20px', maxWidth: '600px'}}>
@@ -66,5 +69,6 @@ class App extends Component {
 export default connect(({users}) => ({users}), {
   getUsersRequest,
   createUserRequest,
-  deleteUserRequest
+  deleteUserRequest,
+  usersError
 })(App);
