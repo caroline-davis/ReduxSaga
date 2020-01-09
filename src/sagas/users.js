@@ -13,7 +13,7 @@ function* getUsers() {
         //this will update the users success in redux
         yield put(actions.getUsersSuccess({
             items: result.data.data
-        }))
+        }));
     }catch(e){
 
     }
@@ -26,7 +26,7 @@ function* watchGetUsersRequest() {
     yield takeEvery(actions.Types.GET_USERS_REQUEST, getUsers);
 }
 
-function* createUser(payload) {
+function* createUser({payload}) {
     console.log(payload)
    
     try{   
