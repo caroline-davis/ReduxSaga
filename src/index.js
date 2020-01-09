@@ -5,14 +5,19 @@ import * as serviceWorker from './serviceWorker';
 import axios from 'axios';
 import reducers from './reducers';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './sagas';
 
 axios.defaults.withCredentials = true;
 // b/c of underneath code - now when we call the api all we have 
 // to put to get users for eg. is: axios.get('/users');
 axios.defaults.baseURL = 'http://rem-rest-api.herokuapp.com/api';
 
-const store = createStore(reducers);
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
