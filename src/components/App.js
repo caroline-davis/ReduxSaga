@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUsersRequest } from '../actions/users'
+import UsersList from './UsersList';
 
 
 // generator function - it will begin again if called 4 times if while(true) is there. 
@@ -23,18 +24,23 @@ class App extends Component {
   }
 
   render() {
+    // this is an example to showcase the generator testing func... keep for study - not necessary for app.
     const itertator = testing();
     console.log(itertator.next());
     console.log(itertator.next());
     console.log(itertator.next());
     console.log(itertator.next());
 
+    const users = this.props.users
     return (
-      <div>test</div>
+      <div style={{margin: '0 auto', padding: '20px', maxWidth: '600px'}}>
+      
+        <UsersList users={users.items}/>
+      </div>
     );
   }
 }
 
-export default connect(null,{
+export default connect(({users}) => ({users}), {
   getUsersRequest
 })(App);

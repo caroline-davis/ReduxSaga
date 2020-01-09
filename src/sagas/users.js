@@ -11,7 +11,7 @@ function* getUsers() {
     try {
         const result = yield call(api.getUsers);
         //this will update the users success in redux
-        yield put(actions.getUserSuccess({
+        yield put(actions.getUsersSuccess({
             items: result.data.data
         }))
     }catch(e){
