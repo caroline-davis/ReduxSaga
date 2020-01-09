@@ -1,4 +1,4 @@
-import { takeEvery, takeLatest, call, fork, put } from 'redux-saga/effects';
+import { takeEvery, takeLatest, take, call, fork, put } from 'redux-saga/effects';
 import * as actions from '../actions/users';
 import * as api from '../api/users';
 
@@ -43,10 +43,32 @@ function* watchCreateUserRequest() {
     yield takeLatest(actions.Types.CREATE_USER_REQUEST, createUser);
 };
 
+// this is the delete user worker function
+function* deleteUser({ userId }) {
+    try{
+        yield call(api.deleteUser, userId)
+        yield call(getUsers)
+    } catch(e){
+
+    }
+}
+
+// take is a lower level helper that returns the action that was dispatched
+// this whole delete saga must be resolved before we come back into watching for more actions.
+function* watchDeleteUserRequest() {
+    while(true){
+        const action = yield take(actions.Types.DELETE_USER_REQUEST);
+        yield call(deleteUser, {
+            userId: action.payload.userId
+        });
+    }
+}
+
 // fork is like creating a child process within other child processes
 const usersSagas = [
     fork(watchGetUsersRequest),
-    fork(watchCreateUserRequest)
+    fork(watchCreateUserRequest),
+    fork(watchDeleteUserRequest)
 ];
 
 export default usersSagas;
