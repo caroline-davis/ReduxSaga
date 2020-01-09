@@ -1,7 +1,7 @@
 import React from 'react'
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 
-const UsersList = ({users}) => {
+const UserList = ({users}) => {
     return (
         // to sort by first name, or if the name is the same, sort by first last name.
         <ListGroup>
@@ -40,4 +40,4 @@ const UsersList = ({users}) => {
 
 };
 
-export default UsersList;
+export default UserList;

@@ -1,4 +1,4 @@
-import { takeEvery, call, fork, put } from 'redux-saga/effects';
+import { takeEvery, takeLatest, call, fork, put } from 'redux-saga/effects';
 import * as actions from '../actions/users';
 import * as api from '../api/users';
 
@@ -19,7 +19,6 @@ function* getUsers() {
     }
 }
 
-
 // this watches when one particular redux action has been dispatched, (first prop)
 // then its action is to call a worker saga (second prop)
 // under the hood the 'takeEvery' is running a while(true) loop - waiting and constantly watching
@@ -27,9 +26,27 @@ function* watchGetUsersRequest() {
     yield takeEvery(actions.Types.GET_USERS_REQUEST, getUsers);
 }
 
+function* createUser(payload) {
+    console.log(payload)
+   
+    try{   
+        yield call(api.createUser, {
+            firstName: payload.firstName, 
+            lastName: payload.lastName});
+        yield call(getUsers);
+    } catch(e){
+
+    }
+}
+
+function* watchCreateUserRequest() {
+    yield takeLatest(actions.Types.CREATE_USER_REQUEST, createUser);
+};
+
 // fork is like creating a child process within other child processes
 const usersSagas = [
-    fork(watchGetUsersRequest)
+    fork(watchGetUsersRequest),
+    fork(watchCreateUserRequest)
 ];
 
 export default usersSagas;

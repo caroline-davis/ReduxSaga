@@ -8,18 +8,6 @@ class NewUserForm extends Component {
         lastName: ''
     };
 
-    handleFirstNameChange = e => {
-        this.setState({
-            firstName: e.target.value
-        });
-    };
-
-    handleLastNameChange = e => {
-        this.setState({
-            lastName: e.target.value
-        });
-    }
-
     handleSubmit = e => {
          e.preventDefault();
 
@@ -34,6 +22,18 @@ class NewUserForm extends Component {
 
     }
 
+    handleFirstNameChange = e => {
+        this.setState({
+            firstName: e.target.value
+        });
+    };
+
+    handleLastNameChange = e => {
+        this.setState({
+            lastName: e.target.value
+        });
+    }
+
     render() {
         return (
         <Form onSubmit={this.handleSubmit}>
@@ -41,13 +41,13 @@ class NewUserForm extends Component {
                 <Label>
                     First Name
                 </Label>
-                <Input required placeholder="First name" onChange={this.handleFirstNameChange} value={this.state.firstName} />
+                <Input required type="text" onChange={this.handleFirstNameChange} value={this.state.firstName} />
             </FormGroup>
             <FormGroup>
                 <Label>
                     Last Name
                 </Label>
-                <Input required placeholder="First name" onChange={this.handleLastNameChange} value={this.state.lastName} />
+                <Input required type="text" onChange={this.handleLastNameChange} value={this.state.lastName} />
             </FormGroup>
             <FormGroup>
                 <Button block outline tyoe="submit" color="primary">
