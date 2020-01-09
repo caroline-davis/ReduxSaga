@@ -46,8 +46,8 @@ function* watchCreateUserRequest() {
 // this is the delete user worker function
 function* deleteUser({ userId }) {
     try{
-        yield call(api.deleteUser, userId)
-        yield call(getUsers)
+        yield call(api.deleteUser, userId);
+        yield call(getUsers);
     } catch(e){
 
     }
@@ -60,7 +60,8 @@ function* watchDeleteUserRequest() {
         const action = yield take(actions.Types.DELETE_USER_REQUEST);
         yield call(deleteUser, {
             userId: action.payload.userId
-        });
+        })
+        
     }
 }
 

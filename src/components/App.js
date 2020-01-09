@@ -47,7 +47,7 @@ class App extends Component {
     return (
       <div style={{margin: '0 auto', padding: '20px', maxWidth: '600px'}}>
         <NewUserForm onSubmit={this.handleCreateUserSubmit} />
-        <UserList onDeleteUserClick={this.handleDeleteUserClick} users={users.items}/>
+        <UserList onDeleteUser={this.handleDeleteUserClick} users={users.items}/>
       </div>
     );
   }

@@ -29,7 +29,7 @@ export const createUserRequest = ({ firstName, lastName}) => ({
 });
 
 export const deleteUserRequest = (userId) => ({
-    type: Types.DELETE_USE_REQUEST,
+    type: Types.DELETE_USER_REQUEST,
     payload: {
        userId 
     }

@@ -1,4 +1,3 @@
-/* eslint-disable default-case */
 import { Types } from '../actions/users';
 
 const INITAL_STATE = {
